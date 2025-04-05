@@ -23,7 +23,7 @@ import Services from "./pages/Services";
 import AboutUsPage from "./pages/About";
 import Auth from "./components/Auth";
 import Login from "./pages/Login";
-import Signup from "./pages/SignUp";
+import SignUp from "./pages/SignUp";
 import HarvestingPage from "./components/HarvestingPage";
 import SmartSell from "./pages/SmartSell";
 import ContactUs from "./pages/Contactus";
@@ -67,7 +67,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/signup" element={<SignUp />} />
 
           <Route
             path="/dashboard"
