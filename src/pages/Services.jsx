@@ -20,14 +20,14 @@ const services = [
     title: "HarvestGuru ",
     description:
       "Know the best market and timing to sell your produce profitably.",
-    path: "/market-forecast",
+    path: "/hardvest-dashboard",
     icon: "💰",
   },
   {
     title: "FasalBazaar",
     description:
       "Optimize your resources with personalized insights and weather alerts.",
-    path: "/smart-resources",
+    path: "/smart-sell",
     icon: "📊",
   },
 ];
