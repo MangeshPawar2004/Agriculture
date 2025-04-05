@@ -101,70 +101,176 @@ IMPORTANT: Output *only* the raw JSON object. Do not include any introductory te
   };
 
   return (
-    <div className="max-w-xl mx-auto mt-10 p-6 bg-white rounded shadow-md">
-      <h1 className="text-2xl font-bold mb-4 text-center text-green-700">
-        Crop Suggestion Tool
-      </h1>
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100 py-12">
+      <div className="max-w-4xl mx-auto px-6 sm:px-8">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-green-800 mb-4">
+            Smart Crop Suggestion
+          </h1>
+          <p className="text-lg text-green-600">
+            Get personalized crop recommendations based on your farming
+            conditions
+          </p>
+        </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          name="location"
-          placeholder="Enter your location"
-          value={formData.location}
-          onChange={handleChange}
-          className="w-full border px-4 py-2 rounded"
-          required
-        />
+        <form onSubmit={handleSubmit}>
+          <div className="bg-white rounded-2xl shadow-xl p-8 transform hover:scale-[1.01] transition-transform duration-300">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-6">
+                <div>
+                  <label
+                    htmlFor="location"
+                    className="block text-lg font-semibold text-green-800 mb-2"
+                  >
+                    Location
+                  </label>
+                  <input
+                    type="text"
+                    name="location"
+                    id="location"
+                    value={formData.location}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-lg border-2 border-green-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-300"
+                    placeholder="e.g. Maharashtra"
+                  />
+                </div>
 
-        <input
-          type="text"
-          name="soilType"
-          placeholder="Soil Type (e.g., Loamy, Sandy)"
-          value={formData.soilType}
-          onChange={handleChange}
-          className="w-full border px-4 py-2 rounded"
-          required
-        />
+                <div>
+                  <label
+                    htmlFor="soilType"
+                    className="block text-lg font-semibold text-green-800 mb-2"
+                  >
+                    Soil Type
+                  </label>
+                  <select
+                    name="soilType"
+                    id="soilType"
+                    value={formData.soilType}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-lg border-2 border-green-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-300"
+                  >
+                    <option value="">-- Select Soil Type --</option>
+                    <option value="Sandy">Sandy</option>
+                    <option value="Loamy">Loamy</option>
+                    <option value="Silty">Silty</option>
+                    <option value="Clay">Clay</option>
+                    <option value="Peaty">Peaty</option>
+                    <option value="Chalky">Chalky</option>
+                    <option value="Red Sandy">Red Sandy</option>
+                    <option value="Black Sandy">Black Sandy</option>
+                    <option value="Coarse Sand">Coarse Sand</option>
+                    <option value="Fine Sand">Fine Sand</option>
+                  </select>
+                </div>
 
-        <input
-          type="number"
-          name="rainfall"
-          placeholder="Rainfall (in mm)"
-          value={formData.rainfall}
-          onChange={handleChange}
-          className="w-full border px-4 py-2 rounded"
-          required
-        />
+                <div>
+                  <label
+                    htmlFor="rainfall"
+                    className="block text-lg font-semibold text-green-800 mb-2"
+                  >
+                    Rainfall (mm)
+                  </label>
+                  <input
+                    type="number"
+                    name="rainfall"
+                    id="rainfall"
+                    value={formData.rainfall}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-lg border-2 border-green-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-300"
+                    placeholder="e.g. 850"
+                  />
+                </div>
+              </div>
 
-        <input
-          type="text"
-          name="preferredDuration"
-          placeholder="Preferred crop duration (e.g., 90 days)"
-          value={formData.preferredDuration}
-          onChange={handleChange}
-          className="w-full border px-4 py-2 rounded"
-          required
-        />
+              <div className="space-y-6">
+                <div>
+                  <label
+                    htmlFor="preferredDuration"
+                    className="block text-lg font-semibold text-green-800 mb-2"
+                  >
+                    Preferred Duration
+                  </label>
+                  <input
+                    type="text"
+                    name="preferredDuration"
+                    id="preferredDuration"
+                    value={formData.preferredDuration}
+                    onChange={handleChange}
+                    required
+                    className="w-full px-4 py-3 rounded-lg border-2 border-green-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-300"
+                    placeholder="e.g. 90 days"
+                  />
+                </div>
 
-        <input
-          type="text"
-          name="preferredCrop"
-          placeholder="Any crop preference? (optional)"
-          value={formData.preferredCrop}
-          onChange={handleChange}
-          className="w-full border px-4 py-2 rounded"
-        />
+                <div>
+                  <label
+                    htmlFor="preferredCrop"
+                    className="block text-lg font-semibold text-green-800 mb-2"
+                  >
+                    Preferred Crop (optional)
+                  </label>
+                  <input
+                    type="text"
+                    name="preferredCrop"
+                    id="preferredCrop"
+                    value={formData.preferredCrop}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg border-2 border-green-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all duration-300"
+                    placeholder="e.g. Rice"
+                  />
+                </div>
+              </div>
+            </div>
 
-        <button
-          type="submit"
-          className="bg-green-600 text-white px-6 py-2 rounded w-full hover:bg-green-700"
-        >
-          {loading ? "Generating..." : "Get Crop Suggestion"}
-        </button>
-      </form>
+            <div className="mt-10 flex justify-center">
+              <button
+                type="submit"
+                className={`px-8 py-4 rounded-xl text-lg font-bold text-white bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 transform hover:scale-105 transition-all duration-300 shadow-lg ${
+                  loading ? "opacity-75 cursor-not-allowed" : ""
+                }`}
+                disabled={loading}
+              >
+                {loading ? (
+                  <span className="flex items-center">
+                    <svg
+                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    Generating...
+                  </span>
+                ) : (
+                  "Get Crop Suggestion"
+                )}
+              </button>
+            </div>
+          </div>
+        </form>
 
-      {result && <CropReport data={result} />}
+        {result && (
+          <div className="mt-12 transform transition-all duration-500">
+            <CropReport data={result} />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

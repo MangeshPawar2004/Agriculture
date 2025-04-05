@@ -5,19 +5,11 @@ import PropTypes from "prop-types";
  * Displays a detailed crop recommendation report.
  * @param {object} props - The component props.
  * @param {object} props.data - The crop recommendation data object.
- * @param {string} props.data.crop - Recommended crop name.
- * @param {string} props.data.sowing_season - Optimal sowing season.
- * @param {string} props.data.duration - Crop duration until harvest.
- * @param {string[]} props.data.care_tips - Array of care tips.
- * @param {string} props.data.climate - Suitable climate.
- * @param {string} props.data.irrigation_needs - Water requirements.
- * @param {string} props.data.fertilizer_recommendations - Fertilizer guidance.
- * @param {string} [props.data.error] - Optional error message.
  */
 const CropReport = ({ data }) => {
   if (!data) {
     return (
-      <div className="mt-6 p-4 bg-blue-100 text-blue-800 rounded animate-pulse">
+      <div className="mt-6 p-4 bg-green-50 text-black rounded-lg animate-pulse shadow-inner">
         Loading recommendation...
       </div>
     );
@@ -25,7 +17,7 @@ const CropReport = ({ data }) => {
 
   if (data.error) {
     return (
-      <div className="mt-6 p-4 bg-red-100 text-red-800 rounded">
+      <div className="mt-6 p-4 bg-red-100 text-black border border-red-300 rounded-lg shadow-sm">
         Error: {data.error}
       </div>
     );
@@ -33,16 +25,18 @@ const CropReport = ({ data }) => {
 
   if (!data.crop || !data.sowing_season) {
     return (
-      <div className="mt-6 p-4 bg-yellow-100 text-yellow-800 rounded">
+      <div className="mt-6 p-4 bg-yellow-100 text-black border border-yellow-300 rounded-lg shadow-sm">
         Incomplete recommendation data received.
       </div>
     );
   }
 
   const DataSection = ({ title, children }) => (
-    <div className="p-4 bg-green-50 rounded-lg border border-green-200 shadow-sm">
-      <h3 className="font-semibold text-base text-green-800 mb-1">{title}</h3>
-      <p className="text-gray-700 text-sm">
+    <div className="p-4 bg-white rounded-xl border border-gray-200 shadow hover:shadow-lg transition-transform duration-200 hover:scale-[1.02]">
+      <h3 className="font-semibold text-sm text-black mb-1 uppercase tracking-wide">
+        {title}
+      </h3>
+      <p className="text-black text-sm leading-relaxed">
         {children && typeof children === "string" && children.trim()
           ? children
           : "Data not available."}
@@ -51,12 +45,12 @@ const CropReport = ({ data }) => {
   );
 
   return (
-    <div className="mt-8 p-6 bg-white rounded-xl shadow-lg border border-gray-200 space-y-5 animate-fade-in">
-      <h2 className="text-2xl font-bold text-green-700 border-b border-green-300 pb-2 mb-5">
-        Crop Recommendation Report
+    <div className="mt-10 px-6 py-8 bg-gray-50 rounded-2xl shadow-xl border border-gray-200 space-y-6 animate-fade-in">
+      <h2 className="text-3xl font-bold text-black border-b border-green-300 pb-3">
+        🌱 Crop Recommendation Report
       </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         <DataSection title="Recommended Crop">{data.crop}</DataSection>
         <DataSection title="Sowing Season">{data.sowing_season}</DataSection>
         <DataSection title="Estimated Duration">{data.duration}</DataSection>
@@ -69,13 +63,13 @@ const CropReport = ({ data }) => {
         </DataSection>
       </div>
 
-      {data.care_tips && data.care_tips.length > 0 && (
-        <div className="pt-4">
-          <h3 className="font-semibold text-lg text-green-800 mb-2 pl-1">
-            Care Tips
+      {data.care_tips?.length > 0 && (
+        <div>
+          <h3 className="font-semibold text-xl text-black mb-3 pl-1">
+            🌾 Care Tips
           </h3>
-          <div className="p-4 bg-lime-50 rounded-lg border border-lime-200 shadow-sm">
-            <ul className="list-disc pl-5 space-y-1.5 text-sm text-gray-800">
+          <div className="p-4 bg-white rounded-lg border border-lime-200 shadow-inner">
+            <ul className="list-disc pl-5 space-y-2 text-black text-sm">
               {data.care_tips.map((tip, index) => (
                 <li key={index}>{tip}</li>
               ))}
@@ -84,13 +78,12 @@ const CropReport = ({ data }) => {
         </div>
       )}
 
-      {/* Try Again Button */}
-      <div className="text-center">
+      <div className="text-center pt-4">
         <button
           onClick={() => window.location.reload()}
-          className="mt-6 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+          className="px-5 py-2.5 bg-green-600 border-black text-sm font-medium rounded-lg hover:bg-green-700 transition-all duration-300 transform hover:scale-105 shadow-md"
         >
-          Try Again
+          🔄 Try Again
         </button>
       </div>
     </div>
