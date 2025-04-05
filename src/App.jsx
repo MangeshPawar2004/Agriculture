@@ -23,7 +23,7 @@ import Services from "./pages/Services";
 import AboutUsPage from "./pages/About";
 import Auth from "./components/Auth";
 import Login from "./pages/Login";
-import Signup from "./pages/SignUp";
+import Signup from "./pages/Signup";
 import HarvestingPage from "./components/HarvestingPage";
 import SmartSell from "./pages/SmartSell";
 
