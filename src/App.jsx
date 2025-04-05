@@ -26,6 +26,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import HarvestingPage from "./components/HarvestingPage";
 import SmartSell from "./pages/SmartSell";
+import ContactUs from "./pages/Contactus";
 
 const theme = createTheme({
   palette: {
