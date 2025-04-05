@@ -26,6 +26,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/SignUp";
 import HarvestingPage from "./components/HarvestingPage";
 import SmartSell from "./pages/SmartSell";
+import ContactUs from "./pages/Contactus";
 
 const theme = createTheme({
   palette: {
@@ -130,6 +131,7 @@ function App() {
           <Route path="/login" element={<Auth />} />
           <Route path="/services" element={<Services />} />
           <Route path="/about" element={<AboutUsPage />} />
+          <Route path="/contact" element={<ContactUs />} />
           <Route
             path="crop-monitoring/smart-tips"
             element={<SmartTipsPage />}
