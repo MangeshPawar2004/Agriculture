@@ -1,6 +1,6 @@
-// src/components/Navbar.jsx
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useUser, SignOutButton } from "@clerk/clerk-react";
 
 const navLinks = [
   { name: "Home", to: "/" },
@@ -11,6 +11,7 @@ const navLinks = [
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { isSignedIn, user } = useUser();
 
   return (
     <nav className="sticky w-full bg-gradient-to-r from-green-500 to-green-700 shadow-md z-50">
@@ -41,12 +42,34 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <Link
-              to="/login"
-              className="px-4 py-1 bg-green-600 text-white rounded hover:bg-green-500 transition duration-300 ease-in-out transform hover:scale-105"
-            >
-              Login
-            </Link>
+
+            {!isSignedIn ? (
+              <>
+                <Link
+                  to="/login"
+                  className="px-4 py-1 bg-green-600 text-white rounded hover:bg-green-500 transition duration-300 ease-in-out transform hover:scale-105"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/signup"
+                  className="px-4 py-1 bg-yellow-400 text-green-900 font-semibold rounded hover:bg-yellow-300 transition duration-300 ease-in-out transform hover:scale-105"
+                >
+                  Signup
+                </Link>
+              </>
+            ) : (
+              <div className="flex items-center space-x-4">
+                <span className="text-white font-semibold">
+                  Hi, {user.firstName}
+                </span>
+                <SignOutButton>
+                  <button className="px-4 py-1 bg-red-600 text-white rounded hover:bg-red-500 transition duration-300 ease-in-out transform hover:scale-105">
+                    Logout
+                  </button>
+                </SignOutButton>
+              </div>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -105,13 +128,39 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
-            <Link
-              to="/login"
-              onClick={() => setMenuOpen(false)}
-              className="block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-500 transition duration-300 ease-in-out transform hover:scale-105"
-            >
-              Login
-            </Link>
+
+            {!isSignedIn ? (
+              <>
+                <Link
+                  to="/login"
+                  onClick={() => setMenuOpen(false)}
+                  className="block px-4 py-2 bg-green-600 text-white rounded hover:bg-green-500 transition duration-300 ease-in-out transform hover:scale-105"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/signup"
+                  onClick={() => setMenuOpen(false)}
+                  className="block px-4 py-2 bg-yellow-400 text-green-900 rounded hover:bg-yellow-300 transition duration-300 ease-in-out transform hover:scale-105"
+                >
+                  Signup
+                </Link>
+              </>
+            ) : (
+              <div className="space-y-2">
+                <span className="block text-gray-700 font-semibold">
+                  Hi, {user.firstName}
+                </span>
+                <SignOutButton>
+                  <button
+                    onClick={() => setMenuOpen(false)}
+                    className="block w-full px-4 py-2 bg-red-600 text-white rounded hover:bg-red-500 transition duration-300 ease-in-out transform hover:scale-105"
+                  >
+                    Logout
+                  </button>
+                </SignOutButton>
+              </div>
+            )}
           </div>
         </div>
       )}
