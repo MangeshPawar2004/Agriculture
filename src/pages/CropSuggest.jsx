@@ -25,40 +25,40 @@ const CropSuggest = () => {
     e.preventDefault();
     setLoading(true);
     setResult(null);
+
     const prompt = `You are an expert agricultural assistant AI. Your task is to analyze the provided user data and recommend the most suitable crop.
 
-    Based *only* on the following user data:
-    {
-      "location": "${formData.location}",
-      "soil_type": "${formData.soilType}",
-      "rainfall_mm": ${formData.rainfall}, // Assuming rainfall is a number
-      "preferred_duration": "${formData.preferredDuration}",
-      "preferred_crop": "${formData.preferredCrop || "None"}"
-    }
-    
-    Generate a single, valid JSON object containing the recommendation details. Adhere *strictly* to the specified keys and data types below.
-    
-    Prioritize crops well-suited to the given location, soil type, and rainfall.
-    Consider the preferred duration.
-    If a preferred crop is specified ('None' means no preference) and it is suitable for the conditions, prioritize recommending it. If it's unsuitable, choose the best alternative based on the other factors.
-    
-    The JSON object must have the following structure and data types:
-    {
-      "crop": "string", // The common name of the recommended crop.
-      "sowing_season": "string", // The optimal sowing season(s) for the crop in the likely climate zone (e.g., "Spring", "Early Summer", "Kharif", "Rabi").
-      "duration": "string", // Estimated time from sowing to harvest (e.g., "90-100 days", "6 months"). Try to match preferred_duration if feasible.
-      "care_tips": [ // An array of 3-5 brief, actionable care tips specific to the recommended crop.
-        "string",
-        "string",
-        // ... more tips
-      ],
-      "climate": "string", // General climate suitability for the crop (e.g., "Warm and humid", "Temperate", "Requires sunny days and cool nights"). Ensure this matches the input data context.
-      "irrigation_needs": "string", // Description of water requirements (e.g., "Requires consistent moisture, supplement rainfall", "Drought-tolerant once established", "Moderate watering needed"). Relate this to the provided rainfall_mm if possible.
-      "fertilizer_recommendations": "string" // Brief guidance on fertilizer type or timing (e.g., "Balanced NPK at planting", "Prefers compost-rich soil", "Top-dress with Nitrogen during growth"). Consider the soil_type if relevant.
-    }
-    
-    IMPORTANT: Output *only* the raw JSON object. Do not include any introductory text, explanation, markdown formatting (like \`\`\`json), or concluding remarks. The output must be parseable by JSON.parse().
-    `;
+Based *only* on the following user data:
+{
+  "location": "${formData.location}",
+  "soil_type": "${formData.soilType}",
+  "rainfall_mm": ${formData.rainfall},
+  "preferred_duration": "${formData.preferredDuration}",
+  "preferred_crop": "${formData.preferredCrop || "None"}"
+}
+
+Generate a single, valid JSON object containing the recommendation details. Adhere *strictly* to the specified keys and data types below.
+
+Prioritize crops well-suited to the given location, soil type, and rainfall.
+Consider the preferred duration.
+If a preferred crop is specified ('None' means no preference) and it is suitable for the conditions, prioritize recommending it. If it's unsuitable, choose the best alternative based on the other factors.
+
+The JSON object must have the following structure and data types:
+{
+  "crop": "string",
+  "sowing_season": "string",
+  "duration": "string",
+  "care_tips": [
+    "string",
+    "string",
+    "string"
+  ],
+  "climate": "string",
+  "irrigation_needs": "string",
+  "fertilizer_recommendations": "string"
+}
+
+IMPORTANT: Output *only* the raw JSON object. Do not include any introductory text, explanation, markdown formatting (like \`\`\`json), or concluding remarks. The output must be parseable by JSON.parse().`;
 
     try {
       const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
@@ -76,40 +76,28 @@ const CropSuggest = () => {
       const reply =
         response.data.candidates?.[0]?.content?.parts?.[0]?.text ??
         "No suggestion received.";
+      console.log("Raw reply from Gemini:", reply);
+
       let parsed;
       try {
-        parsed = JSON.parse(reply);
-      } catch {
-        parsed = { crop: reply }; // fallback
+        const jsonMatch = reply.match(/\{[\s\S]*\}/);
+        parsed = jsonMatch
+          ? JSON.parse(jsonMatch[0])
+          : { crop: "Could not parse suggestion." };
+      } catch (error) {
+        console.error("Failed to parse JSON:", error);
+        parsed = { crop: "Error parsing suggestion." };
       }
 
       setResult(parsed);
     } catch (err) {
-      console.error(err);
+      console.error("API error:", err);
       setResult({
         error: "Something went wrong while fetching the suggestion.",
       });
     } finally {
       setLoading(false);
     }
-  };
-
-  const apiResponseData = {
-    crop: "Pearl Millet (Bajra)",
-    sowing_season: "Kharif",
-    duration: "90-120 days",
-    care_tips: [
-      "Ensure well-drained soil to prevent waterlogging.",
-      "Thin seedlings to maintain optimal plant spacing.",
-      "Monitor for pests like shoot fly and stem borer.",
-      "Harvest when grains are hard and stalks begin to dry.",
-      "Apply organic mulch to conserve soil moisture.",
-    ],
-    climate: "Warm and dry",
-    irrigation_needs:
-      "Drought-tolerant; supplemental irrigation beneficial during critical growth stages, especially with low rainfall.",
-    fertilizer_recommendations:
-      "Apply basal dose of nitrogen and phosphorus; top-dress with nitrogen after first weeding.",
   };
 
   return (
@@ -176,7 +164,7 @@ const CropSuggest = () => {
         </button>
       </form>
 
-      {apiResponseData && <CropReport data={apiResponseData} />}
+      {result && <CropReport data={result} />}
     </div>
   );
 };
