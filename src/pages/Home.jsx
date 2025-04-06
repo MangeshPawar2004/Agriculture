@@ -13,7 +13,7 @@ const Home = () => {
     >
       <div className="container mx-auto px-4 text-center">
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-poppins mb-6">
-          A farmer's true partner from soil to sale.
+          A complete solution for New Age Farmer
         </h1>
         <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
           Built for farmers, by those who care — BeejSeBazaar blends trust,
