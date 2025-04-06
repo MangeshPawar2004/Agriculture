@@ -1,5 +1,3 @@
-Okay, here is a comprehensive README file based on your project description. It includes standard sections like features, tech stack, project structure, setup instructions, and environment variable configuration.
-
 # 🌾 BeejSeBazaar – Smart Farming Web Platform
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) <!-- Optional: Add other badges like build status -->
