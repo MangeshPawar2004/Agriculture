@@ -27,6 +27,7 @@ import Signup from "./pages/Signup";
 import HarvestingPage from "./components/HarvestingPage";
 import SmartSell from "./pages/SmartSell";
 import ContactUs from "./pages/Contactus";
+import CropHealth from "./pages/CropHealth";
 
 const theme = createTheme({
   palette: {
@@ -127,6 +128,7 @@ function App() {
             path="crop-monitoring/crop-health-check"
             element={<CropHealthCheckPage />}
           />
+          <Route path="crop-monitoring/crop-health" element={<CropHealth />} />
           <Route path="/smart-sell" element={<SmartSell />} />
           <Route path="/login" element={<Auth />} />
           <Route path="/services" element={<Services />} />
