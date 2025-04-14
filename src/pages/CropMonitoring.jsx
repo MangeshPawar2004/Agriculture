@@ -24,7 +24,7 @@ const CropMonitoring = () => {
     {
       title: "🔍 Crop Health Detection",
       color: "red",
-      to: "/crop-monitoring/crop-health-check",
+      to: "/crop-monitoring/crop-health",
       emoji: "🔍",
     },
     {
