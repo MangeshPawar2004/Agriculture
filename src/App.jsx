@@ -129,7 +129,7 @@ function App() {
             element={<CropHealthCheckPage />}
           />
           <Route path="crop-monitoring/crop-health" element={<CropHealth />} />
-          <Route path="crop-monitoring/crop-health" element={<CropHealth />} />
+       
           <Route path="/smart-sell" element={<SmartSell />} />
           <Route path="/login" element={<Auth />} />
           <Route path="/services" element={<Services />} />

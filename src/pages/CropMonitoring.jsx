@@ -28,6 +28,12 @@ const CropMonitoring = () => {
       emoji: "🔍",
     },
     {
+      title: "🔍 Crop Health Detection 2",
+      color: "red",
+      to: "/crop-monitoring/crop-health-check",
+      emoji: "🔍",
+    },
+    {
       title: "🧠 AI-Powered Smart Tips",
       color: "purple",
       to: "/crop-monitoring/smart-tips",
